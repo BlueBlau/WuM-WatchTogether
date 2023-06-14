@@ -1,0 +1,12 @@
+.mainContainer{
+    display: flex;
+    flex-direction: column;
+    flex-flow: center;
+    align-items: center;
+    border-style: solid;
+    width: 50%;
+    margin: auto;
+}
+.header{
+    font-family: 'Courier New', Courier, monospace;
+}
