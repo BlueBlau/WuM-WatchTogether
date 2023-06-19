@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/WuM-WatchTogether/static/css/main.0cd7b5fe.css",
-    "main.js": "/WuM-WatchTogether/static/js/main.73262e7d.js",
+    "main.css": "/WuM-WatchTogether/static/css/main.db6ff8b5.css",
+    "main.js": "/WuM-WatchTogether/static/js/main.f948f7c9.js",
     "static/js/787.171f27a8.chunk.js": "/WuM-WatchTogether/static/js/787.171f27a8.chunk.js",
     "index.html": "/WuM-WatchTogether/index.html",
-    "main.0cd7b5fe.css.map": "/WuM-WatchTogether/static/css/main.0cd7b5fe.css.map",
-    "main.73262e7d.js.map": "/WuM-WatchTogether/static/js/main.73262e7d.js.map",
+    "main.db6ff8b5.css.map": "/WuM-WatchTogether/static/css/main.db6ff8b5.css.map",
+    "main.f948f7c9.js.map": "/WuM-WatchTogether/static/js/main.f948f7c9.js.map",
     "787.171f27a8.chunk.js.map": "/WuM-WatchTogether/static/js/787.171f27a8.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.0cd7b5fe.css",
-    "static/js/main.73262e7d.js"
+    "static/css/main.db6ff8b5.css",
+    "static/js/main.f948f7c9.js"
   ]
 }
