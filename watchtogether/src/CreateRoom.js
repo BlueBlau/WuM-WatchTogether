@@ -4,8 +4,7 @@ import style from './createroom.module.css'
 const CreateRoom = () => {
     return(
         <div className={style.mainContainer}>
-            <p>Give your new room a name und click create, to create the room.</p>
-            <input type="text" id='roomName'></input>
+            <input type="text" id='roomName' placeholder='room name'></input>
             <input type="button" value="Create room!" onClick={createNewRoom}></input>
         </div>
     );

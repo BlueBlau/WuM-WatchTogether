@@ -14,7 +14,7 @@ const RoomList = () => {
     const [RoomList, insertNewRoom] = useState(InitalRoomList);
     
     return(
-        <div>
+        <div className={RoomListCSS.mainContainer}>
             <ul className={RoomListCSS.table}>
                 {RoomList.map((room) => <Room key={RoomList.id} name={room.name}/>)}
             </ul>
