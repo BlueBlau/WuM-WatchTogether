@@ -1,18 +1,25 @@
 import React from 'react';
-import style from './createroom.module.css'
+import style from './createroom.module.css';
+import {useState} from 'react';
 
 const CreateRoom = () => {
+    const [roomName, setRoomName] = useState('');
+
+    function createNewRoom(){
+       fetch('https://gruppe2.toni-barth.com/rooms/', {
+            method: 'POST',
+        }).then(res => {
+            return res.json()
+        })
+        .then(data => console.log(data))
+        .catch(error => console.log('ERROR'));
+    }
+
     return(
         <div className={style.mainContainer}>
-            <input type="text" id='roomName' placeholder='room name'></input>
             <input type="button" value="Create room!" onClick={createNewRoom}></input>
         </div>
     );
 };
-
-function createNewRoom(){
-    let roomName = document.getElementById('roomName').value;
-    alert(roomName);
-}
 
 export default CreateRoom;

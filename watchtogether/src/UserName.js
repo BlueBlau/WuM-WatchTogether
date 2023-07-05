@@ -28,7 +28,7 @@ const UserName = () => {
 
     //delete a User
     function deleteIt(){
-        fetch('https://gruppe2.toni-barth.com/users/6', {
+        fetch('https://gruppe2.toni-barth.com/users/7', {
             method:'DELETE'
         }).then((response) => {
             if(response.ok) {
