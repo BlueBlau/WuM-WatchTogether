@@ -1,10 +1,8 @@
 import React from 'react';
 import style from './createroom.module.css';
-import {useState} from 'react';
 
 const CreateRoom = () => {
-    const [roomName, setRoomName] = useState('');
-
+    
     function createNewRoom(){
        fetch('https://gruppe2.toni-barth.com/rooms/', {
             method: 'POST',

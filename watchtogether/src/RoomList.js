@@ -1,33 +1,29 @@
 import React, { useEffect } from 'react';
-import Room from './Room'; 
 import RoomListCSS from './roomlist.module.css';
 import {useState} from 'react';
 import CreateRoom from './CreateRoom';
 
-const data = {
-    "rooms": [
-        {
-            "name": "room1"
-        },
-        {
-            "name": "room2"
-        },
-    ]
-}
-
 
 const RoomList = () => {
-    const [rooms, setListData] = useState(null);
+    const [rooms, setListData] = useState([]);
 
     useEffect(() => {
-        setListData(data);
-    }, []);
+        fetch("https://gruppe2.toni-barth.com/rooms/")
+        .then(res => res.json())
+        .then(data => setListData(data.rooms));
+    },[]);
 
+    
     return(
         <div className={RoomListCSS.mainContainer}>
             <ul className={RoomListCSS.table}>
-                <Room key={rooms.id}>{rooms.name}</Room>
+                {rooms.map((room, index) => (
+                  <li key={index}>{room.name}
+                  <a href={`/rooms/${room.name}`}>{room.name}</a>
+                  </li>  
+                ))}
             </ul>
+            <input type="button" value="Refresh!"></input>
             <div className={RoomListCSS.createAndJoin}>
             <CreateRoom></CreateRoom>
             </div>
