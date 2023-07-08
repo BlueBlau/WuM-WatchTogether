@@ -19,7 +19,6 @@ const RoomList = () => {
             <ul className={RoomListCSS.table}>
                 {rooms.map((room, index) => (
                   <li key={index}>{room.name}
-                  <a href={`/rooms/${room.name}`}>{room.name}</a>
                   </li>  
                 ))}
             </ul>

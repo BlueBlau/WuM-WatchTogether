@@ -2,9 +2,13 @@ import React from 'react';
 import { useState } from 'react';
 
 const UserName = () => {
-    const [username, setUserName] = useState('None')
+    const [username, setUserName] = useState('None');
+    const [userId, setUserId] = useState('None');
     const [isButtonClicked, setIsButtonClicked] = useState(false);
-    const [isInputFieldVisible, setInputFieldVisible] = useState(false)
+    const [isInputFieldVisible, setInputFieldVisible] = useState(false);
+    const [wasUserCreated, setDeleteButton] = useState(true);
+
+    const url = `https://gruppe2.toni-barth.com/users/${userId}`;
 
 
     //create a User
@@ -25,16 +29,18 @@ const UserName = () => {
         }).then(res => {
             return res.json()
         })
-        .then(data => console.log(data))
+        .then(data => {setUserId(data.id)})
         .catch(error => console.log('ERROR'))
+
 
         setIsButtonClicked(true);
         setInputFieldVisible(true);
+        setDeleteButton(false);
     };
 
     //delete a User
     function deleteIt(){
-        fetch('https://gruppe2.toni-barth.com/users/10', {
+        fetch(url, {
             method:'DELETE'
         }).then((response) => {
             if(response.ok) {
@@ -47,16 +53,18 @@ const UserName = () => {
         })
 
         setUserName('None');
+        setUserId('');
         setIsButtonClicked(false);
         setInputFieldVisible(false);
     };
 
     return(
         <div>
-             <p>{username}</p>
+             <p>Username: {username}</p>
+             <p>UserId: {userId}</p>
              <input type='text' id='userNameInput' placeholder='Username' disabled={isInputFieldVisible}></input>
              <input type='Button' value='create User' onClick={createUser} disabled={isButtonClicked}></input>
-             <input type='Button' value='delete all users' onClick={deleteIt}></input>
+             <input type='Button' value='delete all users' onClick={deleteIt} disabled={wasUserCreated}></input>
         </div>
     );
 };
