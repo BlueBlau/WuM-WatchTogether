@@ -9,6 +9,7 @@ const Join = () => {
 
     const url = `https://gruppe2.toni-barth.com/rooms/${roomName}/users`;
 
+    //Raum beitreten
    async function joinRoom(){
         let name = document.getElementById('roomNameInput').value;
         setRoomName(name);
@@ -21,7 +22,8 @@ const Join = () => {
             console.log('Error:', error);
         }
     };
-
+    
+    //prüft, ob Raum existiert
     function checkRoom(data){
         const room = data.rooms.find((room) => roomName === room.name);
         if(room) {
@@ -29,6 +31,7 @@ const Join = () => {
         }
      }
 
+    //User wird tatsächlich in den Raum gepackt 
     function putUserInRoom(url){
         fetch(url, {
             method: "PUT",
@@ -48,7 +51,8 @@ const Join = () => {
             console.log('Error:', error)
         })
     }
-
+    
+    //gibt User eines Raumes zurück
     function getUsers(){
         fetch(url)
         .then(res => res.json())
@@ -57,7 +61,8 @@ const Join = () => {
             console.log('Error:', error)
         })
     }
-
+    
+    //entfernt den Nutzer aus dem Raum
     function leaveRoom(){
         fetch(url, {
             method: 'DELETE',
