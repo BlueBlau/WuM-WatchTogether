@@ -1,6 +1,8 @@
 import React from 'react';
 import { useState } from 'react';
 
+export let UserId;
+
 const UserName = () => {
     const [username, setUserName] = useState('None');
     const [userId, setUserId] = useState('None');
@@ -8,7 +10,7 @@ const UserName = () => {
     const [isInputFieldVisible, setInputFieldVisible] = useState(false);
     const [wasUserCreated, setDeleteButton] = useState(true);
 
-    const url = `https://gruppe2.toni-barth.com/users/${userId}`;
+    const url = `https://gruppe2.toni-barth.com/users/28`;
 
 
     //create a User
@@ -29,14 +31,16 @@ const UserName = () => {
         }).then(res => {
             return res.json()
         })
-        .then(data => {setUserId(data.id)})
+        .then(data => {setUserId(data.id);
+            localStorage.setItem("userId", data.id);})
         .catch(error => console.log('ERROR'))
-
-
+        
         setIsButtonClicked(true);
         setInputFieldVisible(true);
         setDeleteButton(false);
     };
+
+
 
     //delete a User
     function deleteIt(){
@@ -56,6 +60,8 @@ const UserName = () => {
         setUserId('');
         setIsButtonClicked(false);
         setInputFieldVisible(false);
+
+        localStorage.clear();
     };
 
     return(

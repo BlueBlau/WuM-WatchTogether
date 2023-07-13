@@ -7,4 +7,6 @@ const JoinRoom = () => {
             <input type="button" value="Join!"></input>
         </div>
     )
-}
+};
+
+export default JoinRoom;
