@@ -1,0 +1,27 @@
+/* Styles for the VideoPlayer component */
+.UserName {
+  text-align: center;
+  margin-top: 5px;
+  margin-bottom: 20px;
+}
+
+.UserName input[type="text"] {
+  width: 350px;
+  padding: 10px;
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+.UserName button {
+  padding: 9px 23px;
+  font-size: 16px;
+  background-color: #4a9700;
+  color: #fff;
+  border: outset #3e7e00;
+  cursor: pointer;
+}
+
+.UserName button:hover {
+  background-color: #3e7e00;
+  border: inset #4a9700;
+}

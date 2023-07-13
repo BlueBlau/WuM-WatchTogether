@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import ReactPlayer from 'react-player';
+import './videoPlayer.css'; // Import the CSS file
 
 const VideoPlayer = () => {
   const [videoUrl, setVideoUrl] = useState('');
@@ -9,7 +10,7 @@ const VideoPlayer = () => {
   };
 
     return(
-        <div>
+        <div className="VideoPlayer">
             <input
             id="videoUrlInput"
             type="text"
@@ -20,9 +21,7 @@ const VideoPlayer = () => {
             </button>
            <ReactPlayer
             url={videoUrl || 'https://youtu.be/nhPcPZR9JRk'}
-            controls
-            width='640px'
-            height='360px'>
+            controls>
            </ReactPlayer>
         </div>
     );

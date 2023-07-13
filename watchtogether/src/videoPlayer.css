@@ -1,0 +1,28 @@
+/* Styles for the VideoPlayer component */
+.VideoPlayer {
+  text-align: center;
+  margin-top: 5px;
+  margin-bottom: 20px;
+}
+
+.VideoPlayer input[type="text"] {
+  width: 500px;
+  padding: 10px;
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+.VideoPlayer button {
+  padding: 9px 23px;
+  font-size: 16px;
+  background-color: #4a9700;
+  color: #fff;
+  border: outset #3e7e00;
+  cursor: pointer;
+}
+
+.VideoPlayer button:hover {
+  background-color: #3e7e00;
+  border: inset #4a9700;
+}
+

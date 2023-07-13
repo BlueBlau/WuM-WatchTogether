@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
+import './userName.css'; // Import the CSS file
 
 export let UserId;
 
@@ -65,12 +66,12 @@ const UserName = () => {
     };
 
     return(
-        <div>
+        <div className="UserName">
              <p>Username: {username}</p>
              <p>UserId: {userId}</p>
              <input type='text' id='userNameInput' placeholder='Username' disabled={isInputFieldVisible}></input>
-             <input type='Button' value='create User' onClick={createUser} disabled={isButtonClicked}></input>
-             <input type='Button' value='delete all users' onClick={deleteIt} disabled={wasUserCreated}></input>
+             <button onClick={createUser} disabled={isButtonClicked}>create User</button>
+             <button onClick={deleteIt} disabled={wasUserCreated}>delete User</button>
         </div>
     );
 };
