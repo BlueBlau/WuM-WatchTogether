@@ -13,6 +13,8 @@ const UserName = () => {
 
     const url = `https://gruppe2.toni-barth.com/users/28`;
 
+    
+
 
     //create a User
     function createUser(){
@@ -35,7 +37,8 @@ const UserName = () => {
         .then(data => {setUserId(data.id);
             localStorage.setItem("userId", data.id);})
         .catch(error => console.log('ERROR'))
-        
+
+        localStorage.setItem("userName", userName);
         setIsButtonClicked(true);
         setInputFieldVisible(true);
         setDeleteButton(false);

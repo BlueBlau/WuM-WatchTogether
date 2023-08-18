@@ -3,10 +3,12 @@ import RoomListCSS from './roomlist.module.css';
 import {useState} from 'react';
 import CreateRoom from './CreateRoom';
 import Join from './Join';
+import {Link} from 'react-router-dom';
 
 
 const RoomList = () => {
     const [rooms, setListData] = useState([]);
+
 
     useEffect(() => {
         fetch("https://gruppe2.toni-barth.com/rooms/")
@@ -20,12 +22,15 @@ const RoomList = () => {
         .then(data => setListData(data.rooms))
     }
 
+
+    
     
     return(
         <div className={RoomListCSS.mainContainer}>
             <ul className={RoomListCSS.table}>
                 {rooms.map((room, index) => (
-                  <li key={index}>{room.name}
+                  <li key={index}>
+                    <Link to={`/rooms/${room.name}`}>{room.name}</Link>
                   </li>  
                 ))}
             </ul>
