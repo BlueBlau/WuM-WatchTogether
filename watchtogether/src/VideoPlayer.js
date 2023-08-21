@@ -2,13 +2,36 @@ import React, { useState } from 'react';
 import ReactPlayer from 'react-player';
 import './videoPlayer.css'; // Import the CSS file
 
+
+    const url = `https://gruppe2.toni-barth.com/rooms/appetizing-petite-zebra/video`;
+    let UserId = localStorage.getItem("userId");
+
 const VideoPlayer = () => {
-  const [videoUrl, setVideoUrl] = useState('');
-
+    let [videoUrl, setVideoUrl] = useState('https://youtu.be/nhPcPZR9JRk');
   const handleButtonClick = () => {
-    setVideoUrl(document.getElementById('videoUrlInput').value);
-  };
+    videoUrl = (document.getElementById('videoUrlInput').value);
 
+        setVideoUrl(videoUrl);
+        fetch(url, {
+            method: "PUT",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                user: UserId, // User ID
+                url: videoUrl // Video URL
+
+            })
+        }).then((response) => {
+            if(response.ok){
+                console.log('Video set successful.')
+            } else {
+                console.log('Fehler')
+            }
+        }).catch((error) => {
+            console.log('Error:', error)
+        })
+    }
     return(
         <div className="VideoPlayer">
             <input
@@ -20,7 +43,7 @@ const VideoPlayer = () => {
                 Set Video
             </button>
            <ReactPlayer
-            url={videoUrl || 'https://youtu.be/nhPcPZR9JRk'}
+            url={videoUrl}
             controls>
            </ReactPlayer>
         </div>
