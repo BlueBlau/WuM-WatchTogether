@@ -8,8 +8,8 @@ import './videoPlayer.css'; // Import the CSS file
 
 const VideoPlayer = () => {
     let [videoUrl, setVideoUrl] = useState('https://youtu.be/nhPcPZR9JRk');
-  const handleButtonClick = () => {
-    videoUrl = (document.getElementById('videoUrlInput').value);
+    const handleButtonClick = () => {
+        videoUrl = (document.getElementById('videoUrlInput').value);
 
         setVideoUrl(videoUrl);
         fetch(url, {
@@ -32,6 +32,23 @@ const VideoPlayer = () => {
             console.log('Error:', error)
         })
     }
+
+    const getButtonClick = () => {
+    // Make a GET request to fetch the video URL from your API
+        fetch(url, {
+            method: 'GET',
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                // Update the video URL in your component's state with the fetched value
+                setVideoUrl(data.url);
+                console.log('Video fetched successfully.');
+            })
+            .catch((error) => {
+                console.log('Error:', error);
+            });
+    };
+
     return(
         <div className="VideoPlayer">
             <input
@@ -41,6 +58,9 @@ const VideoPlayer = () => {
             />
             <button onClick={handleButtonClick}>
                 Set Video
+            </button>
+            <button onClick={getButtonClick}>
+                Get Video
             </button>
            <ReactPlayer
             url={videoUrl}
