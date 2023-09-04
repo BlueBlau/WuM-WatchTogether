@@ -8,6 +8,8 @@ import {Link} from 'react-router-dom';
 
 const RoomList = () => {
     const [rooms, setListData] = useState([]);
+    const userId = localStorage.getItem("userId");
+
 
 
     useEffect(() => {
@@ -22,6 +24,26 @@ const RoomList = () => {
         .then(data => setListData(data.rooms))
     }
 
+    function putUserIn(roomName){
+            fetch(`https://gruppe2.toni-barth.com/rooms/${roomName}/users`, {
+                method: "PUT",
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    user: userId
+                })
+            }).then((response) => {
+                if(response.ok){
+                    console.log('User joined successful.')
+                } else {
+                    console.log('Fehler')
+                }
+            }).catch((error) => {
+                console.log('Error:', error)
+            })
+    }
+
 
     
     
@@ -30,7 +52,7 @@ const RoomList = () => {
             <ul className={RoomListCSS.table}>
                 {rooms.map((room, index) => (
                   <li key={index}>
-                    <Link to={`/rooms/${room.name}`}>{room.name}</Link>
+                    <Link to={`/rooms/${room.name}`} onClick={putUserIn(room.name)}>{room.name}</Link>
                   </li>  
                 ))}
             </ul>
