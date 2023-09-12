@@ -1,15 +1,14 @@
 {
   "files": {
-    "main.css": "/WuM-WatchTogether/static/css/main.f7eec6b8.css",
-    "main.js": "/WuM-WatchTogether/static/js/main.f5c7e641.js",
-    "static/js/787.171f27a8.chunk.js": "/WuM-WatchTogether/static/js/787.171f27a8.chunk.js",
+    "main.css": "/WuM-WatchTogether/static/css/main.a5417d8d.css",
+    "main.js": "/WuM-WatchTogether/static/js/main.c38e12ec.js",
+    "static/media/Kino.jpg": "/WuM-WatchTogether/static/media/Kino.44e333242ac3657b6d3a.jpg",
     "index.html": "/WuM-WatchTogether/index.html",
-    "main.f7eec6b8.css.map": "/WuM-WatchTogether/static/css/main.f7eec6b8.css.map",
-    "main.f5c7e641.js.map": "/WuM-WatchTogether/static/js/main.f5c7e641.js.map",
-    "787.171f27a8.chunk.js.map": "/WuM-WatchTogether/static/js/787.171f27a8.chunk.js.map"
+    "main.a5417d8d.css.map": "/WuM-WatchTogether/static/css/main.a5417d8d.css.map",
+    "main.c38e12ec.js.map": "/WuM-WatchTogether/static/js/main.c38e12ec.js.map"
   },
   "entrypoints": [
-    "static/css/main.f7eec6b8.css",
-    "static/js/main.f5c7e641.js"
+    "static/css/main.a5417d8d.css",
+    "static/js/main.c38e12ec.js"
   ]
 }
