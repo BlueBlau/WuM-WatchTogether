@@ -1,0 +1,9 @@
+.MessageWindow{
+    height: 100px;
+    width: 450px;
+    overflow-y: auto;
+    background: white;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}

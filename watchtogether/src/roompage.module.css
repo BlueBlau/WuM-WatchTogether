@@ -1,0 +1,6 @@
+.VideoChat{
+    display: flex;
+    flex-direction: row;
+    flex-flow: center;
+    align-items: center;
+}

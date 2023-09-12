@@ -3,14 +3,17 @@ import RoomList from './RoomList';
 import VideoPlayer from "./VideoPlayer";
 import UserNameTag from "./UserNameTag";
 import ChatWindow from "./ChatWindow";
+import RoomPageCSS from "./roompage.module.css"
 
 const RoomPage = () => {
     return(
-        <div> 
+        <div className={RoomPageCSS.main}> 
             <UserNameTag></UserNameTag>
             <RoomList></RoomList>
+            <div className={RoomPageCSS.VideoChat}>
             <VideoPlayer></VideoPlayer>
             <ChatWindow></ChatWindow>
+            </div>
         </div>
     );
 }; 

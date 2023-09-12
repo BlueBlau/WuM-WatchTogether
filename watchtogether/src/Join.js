@@ -86,6 +86,10 @@ const Join = () => {
         })
     }
 
+    function leaveRoom2(){
+        alert("hey");
+    }
+
 
     return(
         <div>

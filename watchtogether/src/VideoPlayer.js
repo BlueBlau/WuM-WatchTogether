@@ -3,7 +3,11 @@ import ReactPlayer from 'react-player';
 import './videoPlayer.css'; // Import the CSS file
 
 
-    const url = `https://gruppe2.toni-barth.com/rooms/appetizing-petite-zebra/video`;
+    const currentUrl = window.location.href;
+    const findRoomName = currentUrl.match(/\/rooms\/([^/]+)$/);
+    const roomName = "o"
+    
+    const url = `https://gruppe2.toni-barth.com/rooms/${roomName}/video`;
     let UserId = localStorage.getItem("userId");
 
 const VideoPlayer = () => {
