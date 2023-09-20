@@ -9,9 +9,12 @@ const VideoPlayer = () => {
     const roomName = findRoomName[1]
     
     const url = `https://gruppe2.toni-barth.com/rooms/${roomName}/video`;
+    const url2 = `https://gruppe2.toni-barth.com/rooms/${roomName}/status`;
+    const url3 = `https://gruppe2.toni-barth.com/rooms/${roomName}/position`;
     let UserId = localStorage.getItem("userId");
 
     let [videoUrl, setVideoUrl] = useState('https://youtu.be/nhPcPZR9JRk');
+    let [videoStatus, setVideoStatus] = useState('paused'); // Start Video immer auf Pause
     const handleButtonClick = () => {
         videoUrl = (document.getElementById('videoUrlInput').value);
 
@@ -28,9 +31,9 @@ const VideoPlayer = () => {
             })
         }).then((response) => {
             if(response.ok){
-                console.log('Video set successful.')
+                console.log('Video erfolgreich gesetzt.')
             } else {
-                console.log('Fehler')
+                console.log('Fehler beim setzen des Videos.')
             }
         }).catch((error) => {
             console.log('Error:', error)
@@ -38,19 +41,106 @@ const VideoPlayer = () => {
     }
 
     const getButtonClick = () => {
-    // Make a GET request to fetch the video URL from your API
+    // Laden von der URL / von der API
         fetch(url, {
             method: 'GET',
         })
             .then((response) => response.json())
             .then((data) => {
-                // Update the video URL in your component's state with the fetched value
                 setVideoUrl(data.url);
-                console.log('Video fetched successfully.');
+                console.log('Video erfolgreich geladen.');
             })
             .catch((error) => {
-                console.log('Error:', error);
+                console.log('Fehler:', error);
             });
+
+    // Laden vom Video Status / von der API
+        fetch(url2, {
+            method: 'GET',
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                setVideoStatus(data.status);
+                console.log('Status erfolgreich geladen.');
+            })
+            .catch((error) => {
+                console.log('Fehler:', error);
+            });
+
+            // Laden vom Video Status / von der API
+        fetch(url3, {
+            method: 'GET',
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                setVideoStatus(data.position);
+                console.log('Position erfolgreich geladen.');
+            })
+            .catch((error) => {
+                console.log('Fehler:', error);
+            });
+
+    };
+
+        // Handler beim Abspielen
+    const handlePlay = () => {
+        setVideoStatus('playing');
+        sendVideoStatusToAPI('playing');
+    };
+
+    // Handler beim Pausieren
+    const handlePause = () => {
+        setVideoStatus('paused');
+        sendVideoStatusToAPI('paused');
+    };
+
+    // Video Status zu API / nur von den oberen Handlern aufgerufen
+    const sendVideoStatusToAPI = (status) => {
+        fetch(url2, {
+            method: "PUT",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                user: UserId, // User ID
+                status: status // Video Status
+            })
+        }).then((response) => {
+            if (response.ok) {
+                console.log(`Video Status: (${status})`);
+            } else {
+                console.log('Fehler beim Senden des Status');
+                console.log(status)
+            }
+        }).catch((error) => {
+            console.log('Fehler:', error);
+        });
+    };
+
+    // Handler bei Skip in Video (direkt mit Fetch)
+    const handleSeek = (e) => {
+        const newPosition = e.playedSeconds;
+        console.log(`User springt zu ${newPosition} seconds.`);
+
+        // Send the newPosition to your API
+        fetch(url3, {
+            method: "PUT",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                user: UserId, // User ID
+                position: newPosition // Video position in seconds
+            })
+        }).then((response) => {
+            if (response.ok) {
+                console.log('Position zur API gesendet.');
+            } else {
+                console.log('Fehler beim senden der Position.');
+            }
+        }).catch((error) => {
+            console.log('Error:', error);
+        });
     };
 
     return(
@@ -68,8 +158,12 @@ const VideoPlayer = () => {
             </button>
            <ReactPlayer
             url={videoUrl}
-            controls>
-           </ReactPlayer>
+            controls
+            onPlay={handlePlay}
+            onPause={handlePause}
+            onSeek={handleSeek}
+           />
+            <p>Video Status: {videoStatus}</p>
         </div>
     );
 };
