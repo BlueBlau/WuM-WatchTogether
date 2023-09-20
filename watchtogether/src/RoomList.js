@@ -52,7 +52,7 @@ const RoomList = () => {
             <ul className={RoomListCSS.table}>
                 {rooms.map((room, index) => (
                   <li key={index}>
-                    <Link to={`/rooms/${room.name}`} onClick={putUserIn(room.name)}>{room.name}</Link>
+                    <Link to={`/rooms/${room.name}`} onClick={() => putUserIn(room.name)}>{room.name}</Link>
                   </li>  
                 ))}
             </ul>

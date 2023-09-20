@@ -2,15 +2,15 @@ import React, { useState } from 'react';
 import ReactPlayer from 'react-player';
 import './videoPlayer.css'; // Import the CSS file
 
+const VideoPlayer = () => {
 
     const currentUrl = window.location.href;
     const findRoomName = currentUrl.match(/\/rooms\/([^/]+)$/);
-    const roomName = "o"
+    const roomName = findRoomName[1]
     
     const url = `https://gruppe2.toni-barth.com/rooms/${roomName}/video`;
     let UserId = localStorage.getItem("userId");
 
-const VideoPlayer = () => {
     let [videoUrl, setVideoUrl] = useState('https://youtu.be/nhPcPZR9JRk');
     const handleButtonClick = () => {
         videoUrl = (document.getElementById('videoUrlInput').value);

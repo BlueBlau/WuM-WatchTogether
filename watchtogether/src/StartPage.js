@@ -3,6 +3,7 @@ import UserName from './UserName';
 import StartPageCSS from './startpage.module.css';
 import RoomList from './RoomList';
 import HelpPageButton from './HelpPageButton';
+import StartPageRoomList from './StartPageRoomList';
 
 const StartPage = () => {
     return(
@@ -11,7 +12,7 @@ const StartPage = () => {
             <h1 className={StartPageCSS.header}>Welcome to WatchTogether!</h1>
             <UserName></UserName>
             <HelpPageButton></HelpPageButton>
-            <RoomList></RoomList>
+            <StartPageRoomList></StartPageRoomList>
         </div>
     );
 };

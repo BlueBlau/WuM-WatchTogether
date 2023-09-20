@@ -17,8 +17,6 @@ const MessageInput = ({whenSended}) => {
         setMessageText(event.target.value)
     }
 
-
-
     function sendMessage(){
         if(messageText.trim() !== ""){
             
