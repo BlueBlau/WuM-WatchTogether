@@ -12,10 +12,7 @@ const UserName = () => {
     const [wasUserCreated, setDeleteButton] = useState(true);
 
     const url = `https://gruppe2.toni-barth.com/users/28`;
-
     
-
-
     //create a User
     function createUser(){
         let userName = document.getElementById('userNameInput').value;

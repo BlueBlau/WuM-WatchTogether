@@ -6,24 +6,32 @@ import Join from './Join';
 import {Link} from 'react-router-dom';
 
 
+//Raumiste für einen Raum
 const RoomList = () => {
     const [rooms, setListData] = useState([]);
     const userId = localStorage.getItem("userId");
 
-
-
-    useEffect(() => {
+    //rendert Liste wenn Componente mounted
+   useEffect(() => {
         fetch("https://gruppe2.toni-barth.com/rooms/")
         .then(res => res.json())
         .then(data => setListData(data.rooms));
     },[]);
 
+    //rendert Liste wenn Component mounted, aber alle 5 sekunde, damit neue Räume angezeigt werden können
+    useEffect(()=> {
+        const interval = setInterval(refresh, 5000)
+        return () => clearInterval(interval);
+    });
+    
+    //Funktion fragt Raumliste von der API ab
     function refresh(){
         fetch("https://gruppe2.toni-barth.com/rooms/")
         .then(res => res.json())
         .then(data => setListData(data.rooms))
     }
 
+    //Funktion, damit der User den Raum beitritt, wenn er auf einen Link klingt -> wird dann an die API geschickt
     function putUserIn(roomName){
             fetch(`https://gruppe2.toni-barth.com/rooms/${roomName}/users`, {
                 method: "PUT",
@@ -46,7 +54,7 @@ const RoomList = () => {
 
 
     
-    
+    //Componentenaufbau
     return(
         <div className={RoomListCSS.mainContainer}>
             <ul className={RoomListCSS.table}>
@@ -56,10 +64,8 @@ const RoomList = () => {
                   </li>  
                 ))}
             </ul>
-            <input type="button" value="Refresh!" onClick={refresh}></input>
             <div className={RoomListCSS.createAndJoin}>
             <Join></Join>
-            <CreateRoom></CreateRoom>
             </div>
         </div>
     );

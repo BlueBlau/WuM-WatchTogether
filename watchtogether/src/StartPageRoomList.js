@@ -3,6 +3,7 @@ import {useEffect, useState} from "react"
 import CreateRoom from "./CreateRoom";
 import {Link} from 'react-router-dom';
 
+//Raumliste für den Startbildschirm
 const StartPageRoomList = () => {
 
     const [rooms, setListData] = useState([]);
@@ -51,6 +52,7 @@ const StartPageRoomList = () => {
                 ))}
             </ul>
             <input type="button" value="Refresh!" onClick={refresh}></input>
+            <CreateRoom></CreateRoom>
         </div>
         
     )
