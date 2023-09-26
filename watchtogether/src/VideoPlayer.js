@@ -149,11 +149,10 @@ const VideoPlayer = () => {
         }
     }
 
-    const handleProgress = (state) => {
-        setCurrentPosition(state.playedSeconds);
-
-        sendVideoPosition(state.playedSeconds)
+    const handleManuelSeek = (newPosition) => {
+        sendVideoPosition(newPosition)
     }
+
 
     async function sendVideoPosition(videoPosition){
         try{
@@ -185,6 +184,7 @@ const VideoPlayer = () => {
         .then((response) => response.json())
         .then((data) => {
             setCurrentPosition(data.position);
+            console.log(currentPosition)
             console.log(data.position)
         })
         .catch((error) => {
@@ -226,7 +226,7 @@ const VideoPlayer = () => {
             controls
             onPlay={handlePlay}
             onPause={handlePause}
-            onProgress={handleProgress}
+            onSeek={handleManuelSeek}
             seekTo={currentPosition}
            />
            <div>
