@@ -149,13 +149,17 @@ const VideoPlayer = () => {
             sendVideoPosition(currentPosition)
         }
     }
-    
-    const handleSeek = (e) => {
-        if(playerRef.current){
-            playerRef.current.seekTo(e);
-            setCurrentPosition(e);
-            sendVideoPosition(e)
+
+    const handleChange = (state) =>{
+        const newPosition = state.playedSeconds;
+
+        if(Math.abs(newPosition - currentPosition) >= 5) {
+            console.log("PositionSkip")
+            sendVideoPosition(newPosition)
         }
+
+        setCurrentPosition(newPosition)
+
     }
 
 
@@ -243,8 +247,7 @@ const VideoPlayer = () => {
             controls
             onPlay={handlePlay}
             onPause={handlePause}
-            onSeek={(e) => handleSeek(e)}
-            onProgress={(e) => setCurrentPosition(e.playedSeconds)}
+            onProgress={handleChange}
            />
            <div>
             <p>Current position: {serverPosition} </p>
