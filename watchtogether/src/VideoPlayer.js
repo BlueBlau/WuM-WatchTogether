@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import ReactPlayer from 'react-player';
 import './videoPlayer.css'; // Import the CSS file
 
@@ -7,6 +7,8 @@ const VideoPlayer = () => {
     const currentUrl = window.location.href;
     const findRoomName = currentUrl.match(/\/rooms\/([^/]+)$/);
     const roomName = findRoomName[1]
+    const playerRef = useRef(null);
+    const [UpdatePosition, setUpdatePosition] = useState(false);
     
     const url = `https://gruppe2.toni-barth.com/rooms/${roomName}/video`;
     const url2 = `https://gruppe2.toni-barth.com/rooms/${roomName}/status`;
@@ -15,9 +17,14 @@ const VideoPlayer = () => {
 
     let [videoUrl, setVideoUrl] = useState('https://youtu.be/nhPcPZR9JRk');
     let [videoStatus, setVideoStatus] = useState('paused'); // Start Video immer auf Pause
+
+    useEffect(()=> {
+        const interval = setInterval(getButtonClick, 5000)
+        return () => clearInterval(interval);
+    });
+
     const handleButtonClick = () => {
         videoUrl = (document.getElementById('videoUrlInput').value);
-
         setVideoUrl(videoUrl);
         fetch(url, {
             method: "PUT",
@@ -41,39 +48,43 @@ const VideoPlayer = () => {
     }
 
     const getButtonClick = () => {
-    // Laden von der URL / von der API
+        // Laden von der URL / von der API
         fetch(url, {
             method: 'GET',
         })
             .then((response) => response.json())
             .then((data) => {
-                setVideoUrl(data.url);
+                const newVideoUrl = data.url;
+
+                handleSetVideoUrl(newVideoUrl);
                 console.log('Video erfolgreich geladen.');
+
             })
             .catch((error) => {
                 console.log('Fehler:', error);
             });
 
-    // Laden vom Video Status / von der API
+        // Laden vom Video Status / von der API
         fetch(url2, {
             method: 'GET',
         })
             .then((response) => response.json())
             .then((data) => {
                 setVideoStatus(data.status);
+                console.log(data.status);
                 console.log('Status erfolgreich geladen.');
             })
             .catch((error) => {
                 console.log('Fehler:', error);
             });
 
-            // Laden vom Video Status / von der API
+        // Laden von Video Position / von der API
         fetch(url3, {
             method: 'GET',
         })
             .then((response) => response.json())
             .then((data) => {
-                setVideoStatus(data.position);
+                handleSetPosition(data.position);
                 console.log('Position erfolgreich geladen.');
             })
             .catch((error) => {
@@ -82,7 +93,7 @@ const VideoPlayer = () => {
 
     };
 
-        // Handler beim Abspielen
+    // Handler beim Abspielen
     const handlePlay = () => {
         setVideoStatus('playing');
         sendVideoStatusToAPI('playing');
@@ -121,8 +132,9 @@ const VideoPlayer = () => {
     const handleSeek = (e) => {
         const newPosition = e.playedSeconds;
         console.log(`User springt zu ${newPosition} seconds.`);
+        setUpdatePosition(true); //Änderungsanfrage bei Update
 
-        // Send the newPosition to your API
+        //Sende Position zu API
         fetch(url3, {
             method: "PUT",
             headers: {
@@ -141,6 +153,21 @@ const VideoPlayer = () => {
         }).catch((error) => {
             console.log('Error:', error);
         });
+    };
+
+    //Setzt Position von Video an geladene Stelle
+    const handleSetPosition = (positionInSeconds) => {
+        if (UpdatePosition && playerRef.current) {
+            playerRef.current.seekTo(positionInSeconds);
+            setUpdatePosition(false); //Änderungsanfrage hier wieder resettet, damit sie nur geändert wird wenn muss
+        }
+    };
+
+    //Setzt neue Video Url
+    const handleSetVideoUrl = (newVideoUrl) => {
+        if (newVideoUrl !== videoUrl) {
+            setVideoUrl(newVideoUrl);
+        }
     };
 
     return(
