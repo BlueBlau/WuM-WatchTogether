@@ -17,11 +17,9 @@ const VideoPlayer = () => {
 
     let [videoUrl, setVideoUrl] = useState('https://youtu.be/nhPcPZR9JRk');
     let [videoStatus, setVideoStatus] = useState('paused'); // Start Video immer auf Pause
+    const [isPlaying, setIsPlaying] = useState(false);
 
-    useEffect(()=> {
-        const interval = setInterval(getButtonClick, 5000)
-        return () => clearInterval(interval);
-    });
+   
 
     const handleButtonClick = () => {
         videoUrl = (document.getElementById('videoUrlInput').value);
@@ -63,71 +61,87 @@ const VideoPlayer = () => {
             .catch((error) => {
                 console.log('Fehler:', error);
             });
-
-        // Laden vom Video Status / von der API
-        fetch(url2, {
-            method: 'GET',
-        })
-            .then((response) => response.json())
-            .then((data) => {
-                setVideoStatus(data.status);
-                console.log(data.status);
-                console.log('Status erfolgreich geladen.');
-            })
-            .catch((error) => {
-                console.log('Fehler:', error);
-            });
-
-        // Laden von Video Position / von der API
-        fetch(url3, {
-            method: 'GET',
-        })
-            .then((response) => response.json())
-            .then((data) => {
-                handleSetPosition(data.position);
-                console.log('Position erfolgreich geladen.');
-            })
-            .catch((error) => {
-                console.log('Fehler:', error);
-            });
-
-    };
+        
+        };
 
     // Handler beim Abspielen
     const handlePlay = () => {
-        setVideoStatus('playing');
-        sendVideoStatusToAPI('playing');
+        if (playerRef.current){
+            setIsPlaying(true);
+            startVideo()
+        }
     };
 
     // Handler beim Pausieren
     const handlePause = () => {
-        setVideoStatus('paused');
-        sendVideoStatusToAPI('paused');
+        if(playerRef.current) {
+            setIsPlaying(false)
+            stopVideo()
+        }
     };
+    
+    //Funktion, die den play-status setzt
+    async function startVideo(){
+        try {
+            await fetch(url2, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    user: UserId,
+                    status: 'playing'
+                }),
+            });
+        } catch (error){
+            console.error('Error while send start request:', error)
+        }
+    }
 
-    // Video Status zu API / nur von den oberen Handlern aufgerufen
-    const sendVideoStatusToAPI = (status) => {
-        fetch(url2, {
-            method: "PUT",
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                user: UserId, // User ID
-                status: status // Video Status
-            })
-        }).then((response) => {
-            if (response.ok) {
-                console.log(`Video Status: (${status})`);
-            } else {
-                console.log('Fehler beim Senden des Status');
-                console.log(status)
+
+    //Funktion, die den paused Status setzt
+    async function stopVideo(){
+        try{
+            await fetch(url2, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    user: UserId,
+                    status: 'paused'
+                }),
+            });
+        } catch (error) {
+            console.error('Error while sending stop request:', error)
+        }
+    }
+
+    useEffect (() => {
+        async function getVideoStatus(){
+            try{
+                const response = await fetch(url2, {
+                    method: 'GET',
+                });
+                if(response.ok){
+                    const data = await response.json();
+                    console.log(data.status)
+                    setIsPlaying(data.status === 'playing');
+                } else {
+                    console.error('Failed to get status from API');
+                }
+            } catch (error) {
+                console.error('Error while requesting status:', error)
             }
-        }).catch((error) => {
-            console.log('Fehler:', error);
-        });
-    };
+        };
 
+        const Interval = setInterval(getVideoStatus, 3000);
+
+        return () => clearInterval(Interval)
+
+    })
+
+   
     // Handler bei Skip in Video (direkt mit Fetch)
     const handleSeek = (e) => {
         const newPosition = e.playedSeconds;
@@ -185,11 +199,17 @@ const VideoPlayer = () => {
             </button>
            <ReactPlayer
             url={videoUrl}
+            ref={playerRef}
+            playing={isPlaying}
             controls
             onPlay={handlePlay}
             onPause={handlePause}
             onSeek={handleSeek}
            />
+           <div>
+            <button onClick={handlePlay}>Play</button>
+            <button onClick={handlePause}>Pause</button>
+           </div>
             <p>Video Status: {videoStatus}</p>
         </div>
     );
