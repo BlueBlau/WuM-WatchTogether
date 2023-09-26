@@ -18,6 +18,7 @@ const VideoPlayer = () => {
     let [videoUrl, setVideoUrl] = useState('https://youtu.be/nhPcPZR9JRk');
     const [isPlaying, setIsPlaying] = useState(false);
     const [currentPosition, setCurrentPosition] = useState(0);
+    const [serverPosition, setServerPosition] = useState(0);
 
    
 
@@ -186,14 +187,15 @@ const VideoPlayer = () => {
             const response = await fetch(url3)
             if(response.ok){
                 const data = await response.json();
-                const newPosition = data.position;
+                const newPosition = data.position
 
-                if(newPosition !== currentPosition){
-                    setCurrentPosition(newPosition)
+                console.log(serverPosition)
+                console.log(newPosition)
 
-                    if(playerRef.current) {
-                        playerRef.current.seekTo(newPosition)
-                    }
+                if(newPosition !== serverPosition){
+                    setServerPosition(newPosition)
+                    console.log(serverPosition)
+                    playerRef.current.seekTo(newPosition)
                 }
             } else {
                 console.error('Failed to get video position');
@@ -209,7 +211,8 @@ const VideoPlayer = () => {
         const interval = setInterval(getVideoPosition, getInterval)
 
         return () => clearInterval(interval)
-    })
+    });
+
    
   
 
@@ -244,7 +247,7 @@ const VideoPlayer = () => {
             onProgress={(e) => setCurrentPosition(e.playedSeconds)}
            />
            <div>
-            <p>Current position: {currentPosition} </p>
+            <p>Current position: {serverPosition} </p>
            </div>
            <button onClick={getCurrentVideoPosition}>GetCurrentPosition</button>
            <button onClick={getVideoPosition}>getNewPosition</button>
