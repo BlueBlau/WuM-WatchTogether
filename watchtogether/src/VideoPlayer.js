@@ -16,8 +16,8 @@ const VideoPlayer = () => {
     let UserId = localStorage.getItem("userId");
 
     let [videoUrl, setVideoUrl] = useState('https://youtu.be/nhPcPZR9JRk');
-    let [videoStatus, setVideoStatus] = useState('paused'); // Start Video immer auf Pause
     const [isPlaying, setIsPlaying] = useState(false);
+    const [currentPosition, setCurrentPosition] = useState(0);
 
    
 
@@ -141,41 +141,63 @@ const VideoPlayer = () => {
 
     })
 
-   
-    // Handler bei Skip in Video (direkt mit Fetch)
-    const handleSeek = (e) => {
-        const newPosition = e.playedSeconds;
-        console.log(`User springt zu ${newPosition} seconds.`);
-        setUpdatePosition(true); //Änderungsanfrage bei Update
-
-        //Sende Position zu API
-        fetch(url3, {
-            method: "PUT",
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                user: UserId, // User ID
-                position: newPosition // Video position in seconds
-            })
-        }).then((response) => {
-            if (response.ok) {
-                console.log('Position zur API gesendet.');
-            } else {
-                console.log('Fehler beim senden der Position.');
-            }
-        }).catch((error) => {
-            console.log('Error:', error);
-        });
-    };
-
-    //Setzt Position von Video an geladene Stelle
-    const handleSetPosition = (positionInSeconds) => {
-        if (UpdatePosition && playerRef.current) {
-            playerRef.current.seekTo(positionInSeconds);
-            setUpdatePosition(false); //Änderungsanfrage hier wieder resettet, damit sie nur geändert wird wenn muss
+    function getCurrentVideoPosition(){
+        if(playerRef.current){
+            const currentPosition = playerRef.current.getCurrentTime();
+            console.log('Current position:', currentPosition);
+            sendVideoPosition(currentPosition)
         }
+    }
+
+    const handleProgress = (state) => {
+        setCurrentPosition(state.playedSeconds);
+
+        sendVideoPosition(state.playedSeconds)
+    }
+
+    async function sendVideoPosition(videoPosition){
+        try{
+            await fetch(url3, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    user: UserId,
+                    position: videoPosition
+                })
+            }).then((response) => {
+                if(response.ok){
+                    console.log("Video position was updated");
+                } else {
+                    console.log("Failed to update video postion")
+                }
+            })
+        } catch (error){
+            console.error('Failed to send videoposition:',error)
+        }
+    }
+
+    const getVideoPosition = () => {
+        fetch(url3,{
+            method: 'GET'
+        })
+        .then((response) => response.json())
+        .then((data) => {
+            setCurrentPosition(data.position);
+            console.log(data.position)
+        })
+        .catch((error) => {
+            console.error('Error while requesting the position:', error);
+        })
     };
+
+    useEffect(() =>{
+        const interval = setInterval(getVideoPosition, 1000);
+        return() => clearInterval(interval)
+    })
+   
+  
 
     //Setzt neue Video Url
     const handleSetVideoUrl = (newVideoUrl) => {
@@ -204,13 +226,13 @@ const VideoPlayer = () => {
             controls
             onPlay={handlePlay}
             onPause={handlePause}
-            onSeek={handleSeek}
+            onProgress={handleProgress}
+            seekTo={currentPosition}
            />
            <div>
-            <button onClick={handlePlay}>Play</button>
-            <button onClick={handlePause}>Pause</button>
+            <p>Current position: {currentPosition} </p>
            </div>
-            <p>Video Status: {videoStatus}</p>
+           <button onClick={getCurrentVideoPosition}>GetCurrentPosition</button>
         </div>
     );
 };

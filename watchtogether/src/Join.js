@@ -42,6 +42,7 @@ const Join = () => {
 
             } else {
                 console.log('Fehler')
+                console.log(roomName)
             }
         }).catch(error => {
             console.log('Error:', error)
