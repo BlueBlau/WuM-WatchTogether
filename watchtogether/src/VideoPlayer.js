@@ -148,9 +148,13 @@ const VideoPlayer = () => {
             sendVideoPosition(currentPosition)
         }
     }
-
-    const handleManuelSeek = (newPosition) => {
-        sendVideoPosition(newPosition)
+    
+    const handleSeek = (e) => {
+        if(playerRef.current){
+            playerRef.current.seekTo(e);
+            setCurrentPosition(e);
+            sendVideoPosition(e)
+        }
     }
 
 
@@ -177,24 +181,26 @@ const VideoPlayer = () => {
         }
     }
 
-    const getVideoPosition = () => {
-        fetch(url3,{
-            method: 'GET'
-        })
-        .then((response) => response.json())
-        .then((data) => {
-            setCurrentPosition(data.position);
-            console.log(currentPosition)
-            console.log(data.position)
-        })
-        .catch((error) => {
-            console.error('Error while requesting the position:', error);
-        })
-    };
+    const getVideoPosition = async() => {
+        try{
+            const response = await fetch(url3)
+            if(response.ok){
+                const data = await response.json();
+                setCurrentPosition(data.position);
+            } else {
+                console.error('Failed to get video position');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }
 
-    useEffect(() =>{
-        const interval = setInterval(getVideoPosition, 1000);
-        return() => clearInterval(interval)
+    const getInterval = 1000;
+    
+    useEffect(() => {
+        const interval = setInterval(getVideoPosition, getInterval)
+
+        return () => clearInterval(interval)
     })
    
   
@@ -226,13 +232,14 @@ const VideoPlayer = () => {
             controls
             onPlay={handlePlay}
             onPause={handlePause}
-            onSeek={handleManuelSeek}
-            seekTo={currentPosition}
+            onSeek={(e) => handleSeek(e)}
+            onProgress={(e) => setCurrentPosition(e.playedSeconds)}
            />
            <div>
             <p>Current position: {currentPosition} </p>
            </div>
            <button onClick={getCurrentVideoPosition}>GetCurrentPosition</button>
+           <button onClick={getVideoPosition}>getNewPosition</button>
         </div>
     );
 };
