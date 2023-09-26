@@ -186,7 +186,15 @@ const VideoPlayer = () => {
             const response = await fetch(url3)
             if(response.ok){
                 const data = await response.json();
-                setCurrentPosition(data.position);
+                const newPosition = data.position;
+
+                if(newPosition !== currentPosition){
+                    setCurrentPosition(newPosition)
+
+                    if(playerRef.current) {
+                        playerRef.current.seekTo(newPosition)
+                    }
+                }
             } else {
                 console.error('Failed to get video position');
             }
