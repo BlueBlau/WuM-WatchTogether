@@ -12,6 +12,7 @@ function App() {
       <Route path="/WuM-WatchTogether" element={<StartPage />}/>
       <Route path="/rooms/:roomName" element={<RoomPage />} />
       <Route path="/help" element={<HelpPage/>} />
+      <Route path="/createUserName" element ={<UserName/>}/>
     </Routes>
 
     );

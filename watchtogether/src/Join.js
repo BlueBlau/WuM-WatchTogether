@@ -52,7 +52,6 @@ const Join = () => {
 
     return(
         <div>
-            <input type="text" placeholder={roomName} id='roomNameInput'></input>
             <input type="button" value="LeaveRoom"  onClick={leaveRoom} ></input>
             <input type="button" value="getallUsersinRoom" onClick={getUsers}></input>
         </div>

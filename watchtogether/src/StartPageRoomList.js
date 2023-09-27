@@ -3,6 +3,7 @@ import {useEffect, useState} from "react"
 import CreateRoom from "./CreateRoom";
 import {Link} from 'react-router-dom';
 
+
 //Raumliste für den Startbildschirm
 const StartPageRoomList = () => {
 
@@ -22,7 +23,7 @@ const StartPageRoomList = () => {
     }
 
     function putUserIn(roomName){
-        fetch(`https://gruppe2.toni-barth.com/rooms/${roomName}/users`, {
+            fetch(`https://gruppe2.toni-barth.com/rooms/${roomName}/users`, {
             method: "PUT",
             headers: {
                 'Content-Type': 'application/json',
@@ -39,19 +40,19 @@ const StartPageRoomList = () => {
         }).catch((error) => {
             console.log('Error:', error)
         })
-}
 
+    }
 
+   
     return(
     <div>
             <ul>
                 {rooms.map((room, index) => (
                   <li key={index}>
-                    <Link to={`/rooms/${room.name}`} onClick={() => putUserIn(room.name)}>{room.name}</Link>
+                    <Link to={`/rooms/${room.name}`}  onClick={() => putUserIn(room.name)}>{room.name}</Link>
                   </li>  
                 ))}
             </ul>
-            <input type="button" value="Refresh!" onClick={refresh}></input>
             <CreateRoom></CreateRoom>
         </div>
         

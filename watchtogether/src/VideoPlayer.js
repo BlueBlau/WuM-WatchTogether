@@ -126,7 +126,6 @@ const VideoPlayer = () => {
                 });
                 if(response.ok){
                     const data = await response.json();
-                    console.log(data.status)
                     setIsPlaying(data.status === 'playing');
                 } else {
                     console.error('Failed to get status from API');
@@ -193,12 +192,11 @@ const VideoPlayer = () => {
                 const data = await response.json();
                 const newPosition = data.position
 
-                console.log(serverPosition)
-                console.log(newPosition)
+              
 
                 if(newPosition !== serverPosition){
                     setServerPosition(newPosition)
-                    console.log(serverPosition)
+                   
                     playerRef.current.seekTo(newPosition)
                 }
             } else {
@@ -249,11 +247,7 @@ const VideoPlayer = () => {
             onPause={handlePause}
             onProgress={handleChange}
            />
-           <div>
-            <p>Current position: {serverPosition} </p>
-           </div>
-           <button onClick={getCurrentVideoPosition}>GetCurrentPosition</button>
-           <button onClick={getVideoPosition}>getNewPosition</button>
+         
         </div>
     );
 };

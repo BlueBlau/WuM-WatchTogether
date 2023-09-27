@@ -6,10 +6,13 @@ import Join from './Join';
 import {Link} from 'react-router-dom';
 
 
+
 //Raumiste für einen Raum
 const RoomList = () => {
     const [rooms, setListData] = useState([]);
     const userId = localStorage.getItem("userId");
+    const [copied, setCopied] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState(false)
 
     //rendert Liste wenn Componente mounted
    useEffect(() => {
@@ -50,6 +53,18 @@ const RoomList = () => {
             }).catch((error) => {
                 console.log('Error:', error)
             })
+
+    }
+
+
+    function copyRoomLink(){
+        const roomLink = window.location.href
+        navigator.clipboard.writeText(roomLink).then(() => {
+            setCopied(true);
+            setTimeout(() => {
+                setCopied(false)
+            }, 2000)
+        })
     }
 
 
@@ -65,6 +80,7 @@ const RoomList = () => {
                 ))}
             </ul>
             <div className={RoomListCSS.createAndJoin}>
+                <button value='Copy roomlink' onClick={copyRoomLink}>{copied ? 'Copied!' : 'Copy Room Link'}</button>
             <Join></Join>
             </div>
         </div>

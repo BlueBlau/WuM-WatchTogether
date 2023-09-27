@@ -29,7 +29,7 @@ const StartPage = () => {
             <audio id="alertSound" preload="auto">
                 <source src="./messageSound.mp3" type="audio/mepg"></source>
             </audio>
-            <input type="button" value="TestAlertSound" onClick={playSound}></input>
+           
         </div>
     );
 };
