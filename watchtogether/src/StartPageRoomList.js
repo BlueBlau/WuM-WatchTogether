@@ -2,6 +2,7 @@ import React from "react";
 import {useEffect, useState} from "react"
 import CreateRoom from "./CreateRoom";
 import {Link} from 'react-router-dom';
+import "./startpageroomlist.css";
 
 
 //Raumliste für den Startbildschirm
@@ -45,7 +46,7 @@ const StartPageRoomList = () => {
 
    
     return(
-    <div>
+    <div className="room-list-container">
             <ul>
                 {rooms.map((room, index) => (
                   <li key={index}>
@@ -54,7 +55,7 @@ const StartPageRoomList = () => {
                 ))}
             </ul>
             <CreateRoom></CreateRoom>
-        </div>
+    </div>
         
     )
 }

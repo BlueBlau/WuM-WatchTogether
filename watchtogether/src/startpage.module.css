@@ -1,5 +1,8 @@
 body {
-    background-image: url("Kino.jpg")
+    background-image: url("Kino.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
 .mainContainer{
