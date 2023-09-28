@@ -2,7 +2,6 @@ import React from 'react';
 import style from './createroom.module.css';
 
 
-
 const CreateRoom = () => {
 
     const userId = localStorage.getItem("userId")
@@ -45,7 +44,9 @@ const CreateRoom = () => {
 
     return(
         <div className={style.mainContainer}>
-            <input type="button" value="Create room!" onClick={createNewRoom}></input>
+            <button className="create-button" onClick={createNewRoom}>
+                Create room!
+            </button>
         </div>
     );
 };

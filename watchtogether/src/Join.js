@@ -1,6 +1,7 @@
 import React from 'react';
 import {useState} from 'react';
 import { Route, Routes } from "react-router-dom";
+import JoinCSS from './join.css';
 
 const Join = () => {
 
@@ -52,8 +53,8 @@ const Join = () => {
 
     return(
         <div>
-            <input type="button" value="LeaveRoom"  onClick={leaveRoom} ></input>
-            <input type="button" value="getallUsersinRoom" onClick={getUsers}></input>
+            <button className="join-button" onClick={leaveRoom}>Leave Room</button>
+            <button className="join-button" onClick={getUsers}>Get All Users in Room</button>
         </div>
     );
 };
