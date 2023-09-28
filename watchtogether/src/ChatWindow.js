@@ -20,6 +20,7 @@ const ChatWindow = () => {
 
     }
 
+    //Funktion, die mitHilfe eines Get-Requests Nachrichten abruft (die neusten ChatNachrichten)
     function getMessage(){
 
         fetch(url, {

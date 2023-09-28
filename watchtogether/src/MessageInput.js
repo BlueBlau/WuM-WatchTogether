@@ -17,6 +17,7 @@ const MessageInput = ({whenSended}) => {
         setMessageText(event.target.value)
     }
 
+    //nimmt den Input einer ChatNachricht entgegen und sendet diese an die API
     function sendMessage(){
         if(messageText.trim() !== ""){
             
@@ -43,38 +44,13 @@ const MessageInput = ({whenSended}) => {
         }
     }
 
-    function getMessage(){
-
-        fetch(url, {
-            method: "GET",
-        }).then((response) => {
-            if(response.ok){
-                console.log("Message request succsessfull")
-                return response.json();
-
-            } else {
-                console.log("Fehler")
-            }
-        }).then((data) =>{
-            if(currentMessage < data.messages.length){
-                console.log(currentMessage)
-                console.log(data.messages.length)
-                whenSended(data.messages[data.messages.length - 1].text)
-                currentMessage = data.messages.length
-                console.log(currentMessage)
-                console.log(data.messages.length)
-             }
-        }).catch((error) => {
-            console.log("Fehler:", error)
-        })
-    }
+  
 
 
     return(
         <div>
             <input type="text" value={messageText} onChange={handleInputChange} placeholder="Write a message"></input>
             <input type="button" value="Send" onClick={sendMessage}></input>
-            <input type="button" value="Get" onClick={getMessage}></input>
         </div>
     );
 };

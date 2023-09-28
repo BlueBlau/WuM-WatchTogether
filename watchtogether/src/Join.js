@@ -14,7 +14,7 @@ const Join = () => {
 
     const url = `https://gruppe2.toni-barth.com/rooms/${roomName}/users`;
 
-    //gibt User eines Raumes zurück
+    //gibt alle User eines Raumes zurück
     function getUsers(){
         fetch(url)
         .then(res => res.json())

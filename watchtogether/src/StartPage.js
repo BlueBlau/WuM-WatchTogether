@@ -7,18 +7,7 @@ import StartPageRoomList from './StartPageRoomList';
 
 const StartPage = () => {
 
-    const alertSound = document.getElementById("alertSound")
-
-    function playSound(){
-        if(alertSound){
-            alertSound.play()
-            console.log("Ja")
-        } else {
-            console.log("No sound there")
-        }
-
-    }
-
+   
 
     return(
     <div className={StartPageCSS.mainContainer}>
@@ -26,9 +15,7 @@ const StartPage = () => {
             <UserName></UserName>
             <HelpPageButton></HelpPageButton>
             <StartPageRoomList></StartPageRoomList>
-            <audio id="alertSound" preload="auto">
-                <source src="./messageSound.mp3" type="audio/mepg"></source>
-            </audio>
+           
            
         </div>
     );

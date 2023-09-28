@@ -7,6 +7,7 @@ const CreateRoom = () => {
 
     const userId = localStorage.getItem("userId")
 
+    //Nutzer wird in den neu erzeugten Raum gepackt -> also senden an API und dann folgen des Links auf diese Seite
     function putUserInNewlyCreatedRoom(roomName){
         fetch(`https://gruppe2.toni-barth.com/rooms/${roomName}/users`, {
             method: "PUT",
@@ -28,6 +29,7 @@ const CreateRoom = () => {
         })
     }
     
+    //Function, die einen neuen Raum erzeugt und dann Funktion aufruft, die Nutzer in diesen Raum packt
     function createNewRoom(){
        fetch('https://gruppe2.toni-barth.com/rooms/', {
             method: 'POST',
