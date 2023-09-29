@@ -1,14 +1,15 @@
 {
   "files": {
-    "main.css": "/WuM-WatchTogether/static/css/main.a5417d8d.css",
-    "main.js": "/WuM-WatchTogether/static/js/main.c38e12ec.js",
+    "main.css": "/WuM-WatchTogether/static/css/main.13217be4.css",
+    "main.js": "/WuM-WatchTogether/static/js/main.366f1366.js",
     "static/media/Kino.jpg": "/WuM-WatchTogether/static/media/Kino.44e333242ac3657b6d3a.jpg",
+    "static/media/curtain.jpg": "/WuM-WatchTogether/static/media/curtain.4cfbf8e6934d52af59a8.jpg",
     "index.html": "/WuM-WatchTogether/index.html",
-    "main.a5417d8d.css.map": "/WuM-WatchTogether/static/css/main.a5417d8d.css.map",
-    "main.c38e12ec.js.map": "/WuM-WatchTogether/static/js/main.c38e12ec.js.map"
+    "main.13217be4.css.map": "/WuM-WatchTogether/static/css/main.13217be4.css.map",
+    "main.366f1366.js.map": "/WuM-WatchTogether/static/js/main.366f1366.js.map"
   },
   "entrypoints": [
-    "static/css/main.a5417d8d.css",
-    "static/js/main.c38e12ec.js"
+    "static/css/main.13217be4.css",
+    "static/js/main.366f1366.js"
   ]
 }
