@@ -65,8 +65,8 @@ const VideoPlayer = () => {
         
         };
 
-    // Handler beim Abspielen
-    const handlePlay = () => {
+      // Handler beim Abspielen
+      const handlePlay = () => {
         if (playerRef.current){
             setIsPlaying(true);
             startVideo()
@@ -140,6 +140,8 @@ const VideoPlayer = () => {
         return () => clearInterval(Interval)
 
     })
+
+
 
     function getCurrentVideoPosition(){
         if(playerRef.current){
