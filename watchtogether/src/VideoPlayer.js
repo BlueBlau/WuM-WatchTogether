@@ -2,6 +2,8 @@ import React, {useEffect, useRef, useState} from 'react';
 import ReactPlayer from 'react-player';
 import './videoPlayer.css'; // Import the CSS file
 
+
+//Componnte, die den VideoPlayer repräsentiert
 const VideoPlayer = () => {
 
     const currentUrl = window.location.href;
@@ -22,6 +24,7 @@ const VideoPlayer = () => {
 
    
 
+    //Funktion, die die VideoUrl eines Input entgegen nimmt und an die API sendet
     const handleButtonClick = () => {
         videoUrl = (document.getElementById('videoUrlInput').value);
         setVideoUrl(videoUrl);
@@ -65,7 +68,9 @@ const VideoPlayer = () => {
         
         };
 
-      // Handler beim Abspielen
+        setInterval(getButtonClick, 2000)
+
+      //nimmt den PlayInput entgegen und ruft Funktion auf, die den Status an die API sendet
       const handlePlay = () => {
         if (playerRef.current){
             setIsPlaying(true);
@@ -73,7 +78,7 @@ const VideoPlayer = () => {
         }
     };
 
-    // Handler beim Pausieren
+    //nimmt den PauseInput entgegen und ruft Funktion auf, die den Status für Pause an die API sendet
     const handlePause = () => {
         if(playerRef.current) {
             setIsPlaying(false)
@@ -118,6 +123,7 @@ const VideoPlayer = () => {
         }
     }
 
+    //Funktion, die in einem gewissen Abstand den status eines Videos von der URL abruft
     useEffect (() => {
         async function getVideoStatus(){
             try{
@@ -135,7 +141,7 @@ const VideoPlayer = () => {
             }
         };
 
-        const Interval = setInterval(getVideoStatus, 3000);
+        const Interval = setInterval(getVideoStatus, 1000);
 
         return () => clearInterval(Interval)
 
@@ -151,6 +157,7 @@ const VideoPlayer = () => {
         }
     }
 
+    //Funktion, die den Fortschritt eines Videos überwacht. Sollte ein Nutzer mehr als 5 Sekunden vorspulen, so wird die Funktion für setzten der neuen Position aufgerufen
     const handleChange = (state) =>{
         const newPosition = state.playedSeconds;
 
@@ -164,6 +171,7 @@ const VideoPlayer = () => {
     }
 
 
+    //Funktion, die die neue Position an die API sendet
     async function sendVideoPosition(videoPosition){
         try{
             await fetch(url3, {
@@ -187,6 +195,7 @@ const VideoPlayer = () => {
         }
     }
 
+    //Funktion die jede Sekunde abfragt, ob sich etwas geändert hat (anfrage an die API) -> sollte das der Fall sein, so wird das Video auf die jeweilie Position gesetzt
     const getVideoPosition = async() => {
         try{
             const response = await fetch(url3)

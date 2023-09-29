@@ -5,6 +5,7 @@ import RoomList from './RoomList';
 import HelpPageButton from './HelpPageButton';
 import StartPageRoomList from './StartPageRoomList';
 
+//Componete, die die Startseite darstellt
 const StartPage = () => {
 
    

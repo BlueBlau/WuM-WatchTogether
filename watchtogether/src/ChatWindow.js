@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import MessageInput from "./MessageInput";
 import MessageList from "./MessageList";
 
+//ChatWindow Componente -> setzt sich zusammen aus einer MessageList COmponente und einer Input Componente für die Nachrichten
 const ChatWindow = () => {
 
     const currentUrl = window.location.href;
@@ -46,6 +47,7 @@ const ChatWindow = () => {
         })
     }
 
+    //bei Änderung wir der getMessageBefehl im Intervall von 5 Sekunden ausgeführt
     useEffect(()=> {
         const interval = setInterval(getMessage, 5000)
         return () => clearInterval(interval);

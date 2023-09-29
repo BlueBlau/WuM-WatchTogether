@@ -4,6 +4,7 @@ import './userName.css'; // Import the CSS file
 
 export let UserId;
 
+//Componntente, die sich um den Username und deren Erstellung kümmert
 const UserName = () => {
     const [username, setUserName] = useState('None');
     const [userId, setUserId] = useState('None');
@@ -13,7 +14,7 @@ const UserName = () => {
 
     const url = `https://gruppe2.toni-barth.com/users/28`;
     
-    //create a User
+    //Funktion, die den NutzerInput entgegen nimmt und den Nutzer erstellt
     function createUser(){
         let userName = document.getElementById('userNameInput').value;
         setUserName(userName);
@@ -43,7 +44,7 @@ const UserName = () => {
 
 
 
-    //delete a User
+    //Funktion, die einen NUtzer löscht
     function deleteIt(){
         fetch(url, {
             method:'DELETE'

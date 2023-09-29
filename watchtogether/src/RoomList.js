@@ -57,6 +57,7 @@ const RoomList = () => {
     }
 
 
+    //Funktion, die per ButtonClick einen Raumlink kopiert (aufs Clipboard speichert)
     function copyRoomLink(){
         const roomLink = window.location.href
         navigator.clipboard.writeText(roomLink).then(() => {

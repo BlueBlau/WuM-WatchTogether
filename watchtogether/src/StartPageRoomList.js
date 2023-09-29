@@ -23,6 +23,7 @@ const StartPageRoomList = () => {
         .then(data => setListData(data.rooms))
     }
 
+    //Funktion, die den Nutzer in den jeweiligen Raum packt, sollte er auf den jeweiligen Link klicken
     function putUserIn(roomName){
             fetch(`https://gruppe2.toni-barth.com/rooms/${roomName}/users`, {
             method: "PUT",

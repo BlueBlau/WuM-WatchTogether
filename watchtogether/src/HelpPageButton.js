@@ -1,6 +1,7 @@
 import React from "react";
 import {Link} from "react-router-dom"
 
+//HelpPageButtonComponente -> nur ein Button, der auf die HilfeSeite führt
 const HelpPageButton = () => {
     return(
     <div>

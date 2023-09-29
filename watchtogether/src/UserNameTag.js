@@ -2,7 +2,7 @@ import React from "react";
 import {useState, useEffect} from 'react';
 
 
-
+//Compontente, die den Nutzer auf der Raumseite darstellt (seinen Namen und seine ID)
 const UserNameTag = () => {
     const [userName, setUserName] = useState('None');
     const [userId, setUserId] = useState('None');

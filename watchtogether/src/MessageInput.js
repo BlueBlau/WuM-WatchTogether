@@ -3,6 +3,7 @@ import { useState } from "react";
 
 let currentMessage = 0;
 
+//Componente, die den MessageInput verarbeitet
 const MessageInput = ({whenSended}) => {
     const userId = localStorage.getItem("userId")
     const [messageText, setMessageText] = useState("");
@@ -17,7 +18,7 @@ const MessageInput = ({whenSended}) => {
         setMessageText(event.target.value)
     }
 
-    //nimmt den Input einer ChatNachricht entgegen und sendet diese an die API
+    //nimmt den Input einer ChatNachricht entgegen und sendet diese an die API -> dabei wird überprüft, ob das Inputfeld leer ist (is das der Fall, passoert nichts)
     function sendMessage(){
         if(messageText.trim() !== ""){
             

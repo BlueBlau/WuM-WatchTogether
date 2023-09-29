@@ -1,14 +1,14 @@
 import React from 'react';
 import style from './createroom.module.css';
 
-
+//CreateRoom Componente -> ist dafür das, das ein neuer Raum erstellt werden kann
 const CreateRoom = () => {
 
     const userId = localStorage.getItem("userId")
 
     //Nutzer wird in den neu erzeugten Raum gepackt -> also senden an API und dann folgen des Links auf diese Seite
-    function putUserInNewlyCreatedRoom(roomName){
-        fetch(`https://gruppe2.toni-barth.com/rooms/${roomName}/users`, {
+    async function putUserInNewlyCreatedRoom(roomName){
+       await fetch(`https://gruppe2.toni-barth.com/rooms/${roomName}/users`, {
             method: "PUT",
             headers: {
                 'Content-Type': 'application/json',

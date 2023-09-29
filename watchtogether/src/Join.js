@@ -3,6 +3,7 @@ import {useState} from 'react';
 import { Route, Routes } from "react-router-dom";
 import JoinCSS from './join.css';
 
+//JoinComponente -> eine Componente die Teil einer Raumseite ist, anders als im Namen gilt diese Compontene hauptsächlich dem Verlassen eines Raums
 const Join = () => {
 
     //const[userCanLeaveRoom, setIsLeaved] = useState(false);
