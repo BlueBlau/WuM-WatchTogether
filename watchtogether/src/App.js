@@ -1,6 +1,6 @@
 import StartPage from "./StartPage";
 import React from "react";
-import  {Route, Routes} from 'react-router-dom';
+import  {HashRouter as Route, Routes} from 'react-router-dom';
 import RoomPage from "./RoomPage";
 import UserName from "./UserName";
 import HelpPage from "./HelpPage.";
